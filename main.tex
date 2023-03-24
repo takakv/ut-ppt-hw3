@@ -1,0 +1,91 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper]{geometry}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{times}
+\usepackage{microtype}
+\usepackage{inconsolata}
+
+% Print a dot instead of colon in table or figure captions
+\usepackage[labelsep=period]{caption}
+
+\usepackage{array}
+\usepackage{tabu}
+\usepackage{xspace}
+
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
+% Figure sizing
+\usepackage{pdflscape}
+\usepackage{calc} % Required for width calculations
+
+\usepackage[hidelinks]{hyperref}
+\usepackage[all]{hypcap}
+
+\usepackage{color}
+\usepackage{xcolor} 
+
+\usepackage[
+    backend=biber,
+    citestyle=ieee,
+    bibstyle=numeric,
+    urldate=iso,
+    seconds=true
+]{biblatex}
+\addbibresource{ref.bib}
+
+% Define the author commands
+\input{authors.tex}
+
+\begin{document}
+
+%===BEGIN TITLE PAGE
+\thispagestyle{empty}
+\begin{center}
+
+\large
+UNIVERSITY OF TARTU\\
+LTAT.04.007 Privacy-Preserving Technologies\\
+
+\vspace{45mm}
+\Large Homework 3:\\Designing Privacy-Preserving Systems
+
+\vspace{4mm}
+\huge Autonomous Vehicle Parking
+\vspace{4mm}
+
+\end{center}
+
+\vspace{18mm}
+
+\begin{flushright}
+ {
+ \setlength{\extrarowheight}{5pt}
+ \begin{tabular}{r l} 
+  \sffamily Authors: & \sffamily \authorone \\
+             & \sffamily \authortwo \\
+             & \sffamily \authorthree
+ \end{tabular}
+ }
+\end{flushright}
+
+\vfill
+\centerline{\large Tartu \the\year}
+
+%===END TITLE PAGE
+
+\newpage
+\tableofcontents
+
+\include{q1.tex}
+\include{q2.tex}
+\include{q3.tex}
+
+\newpage
+\printbibliography
+\addcontentsline{toc}{section}{\refname}
+
+\end{document}

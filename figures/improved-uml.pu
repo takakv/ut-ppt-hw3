@@ -1,0 +1,118 @@
+@startuml improved uml
+
+class PSP <<Controller>> { 
+ }
+class AV <<DataSubject>> { 
+ }
+class PLT <<Processor>> { 
+ }
+class Recipient <<NotRequired>> { 
+ }
+class ThirdParty <<NotRequired>> { 
+ }
+class  location <<PersonalData>> { 
+ 
+		category: general
+}
+class LegalGroundSpecialCategory <<NotRequired>> {
+	unspecified: false
+	consent: false
+	employment_purpose: false
+	social_purpose: false
+	vital_interest: false
+	nonprofit_body: false
+	public_from_subject: false
+	legal_claim: false
+	substantial_public_interest: false
+	preventive_medicine: false
+	occupational_medicine: false
+	public_health: false
+	archiving: false
+	statistical_purposes: false
+	}
+class LegalGround { 
+consent: true 
+ }
+class Consent <<Artifact>> { 
+clear_purpose: true
+unambiguous: true
+affirmative_action: true
+distinguishable: true
+specific: true
+withdrawable: true
+freely_given: true
+}
+class PrivacyPolicy <<Artifact>> { 
+controller_contact_info: true
+dpo_contact_info: true
+purpose_of_processing: true
+legal_basis: true
+data_recipients: true
+storage_period: true
+right_to_access: true
+right_to_rectify: true
+right_to_erasure: true
+right_to_portability: true
+right_to_withdraw_consent: true
+right_to_lodge_complaint: true
+automated_decision_making: true
+}
+class FilingSystem <<NotRequired>> {
+  		data_storage: false
+  		storage_limited: false
+	}
+class SecurityMeasures { 
+technologies: 
+isms_standard: true
+}
+class ProcessingSystem { 
+confidentiality:true
+integrity:true
+availability:true
+resilient:true
+pseudonimity:true
+data_minimization:true
+redundancies:true
+tested:true
+}
+class Check_parking_availability <<ProcessingTask>> {
+		recorded: true
+	}
+class RecordOfProcessing <<Artifact>> { 
+name: true
+purpose: true
+contact_details: true
+personal_data_category: true
+data_storage_period: true
+security_measures: true
+third_countries_transfer: true
+recipients: true
+}
+ location -- Consent : manifests >
+ location -- PrivacyPolicy : manifests >
+AV --  location : provides >
+PSP -- ProcessingSystem : implements >
+PSP -- PLT : authorizes >
+Check_parking_availability -- RecordOfProcessing : manifests >
+ location -- LegalGroundSpecialCategory : requires >
+ location -- LegalGround : requires >
+PSP --|> DataHandler
+PLT --|> DataHandler
+Recipient --|> DataHandler
+ThirdParty --|> DataHandler
+DataHandler --  location : receives >
+ProcessingSystem -- Check_parking_availability : performs >
+FilingSystem --|> ProcessingSystem
+SecurityMeasures -- ProcessingSystem : secures >
+skinparam class {
+  BackgroundColor<<Artifact>> PaleGreen
+  BorderColor<<Artifact>> SpringGreen
+  BackGroundColor<<NotRequired>> White
+  BorderColor<<NotRequired>> DarkGray
+  AttributeFontColor<<NotRequired>> LightGray
+  BorderColor<<MissingClass>> Red
+  BackgroundColor<<MissingArtifact>> PaleGreen
+  BorderColor<<MissingArtifact>> Red
+}
+
+@enduml

@@ -1,0 +1,134 @@
+@startuml inital-uml
+
+class PSP <<Controller>> { 
+ }
+class AV <<DataSubject>> { 
+ }
+class PLT <<Processor>> { 
+ }
+class Recipient <<NotRequired>> { 
+ }
+class ThirdParty <<NotRequired>> { 
+ }
+class parkingServiceCredential <<PersonalData>> { 
+ 
+		category: general
+}
+class LegalGroundSpecialCategory <<NotRequired>> {
+	unspecified: false
+	consent: false
+	employment_purpose: false
+	social_purpose: false
+	vital_interest: false
+	nonprofit_body: false
+	public_from_subject: false
+	legal_claim: false
+	substantial_public_interest: false
+	preventive_medicine: false
+	occupational_medicine: false
+	public_health: false
+	archiving: false
+	statistical_purposes: false
+	}
+class LegalGround {
+	  unspecified: true
+	  consent: false
+	  contract_performance: false
+	  controller_legal_obligation: false
+	  vital_interest_protection: false
+	  public_interest: false
+	  legitimate_interest: false
+	}
+class Consent <<MissingArtifact>> {
+		  clear_purpose: 
+		  unambiguous: 
+		  affirmative_action: 
+		  distinguishable: 
+		  specific: 
+		  withdrawable: 
+		  freely_given: 
+		}
+class PrivacyPolicy <<MissingArtifact>> {
+			controller_contact_info
+			dpo_contact_info
+			purpose_of_processing
+			legal_basis
+			data_recipients
+			storage_period
+			right_to_access
+			right_to_rectify
+			right_to_erasure
+			right_to_portability
+			right_to_withdraw_consent
+			right_to_lodge_complaint
+			automated_decision_making
+		}
+class FilingSystem <<NotRequired>> {
+  		data_storage: false
+  		storage_limited: false
+	}
+class SecurityMeasures <<MissingClass>> {
+  		technologies:
+  		isms_standard:
+	}
+class ProcessingSystem { 
+confidentiality:
+integrity:
+availability:
+resilient:
+pseudonimity:
+data_minimization:
+redundancies:
+tested:
+}
+class Check_parking_service_credential <<ProcessingTask>> {
+		recorded: false
+	}
+class RecordOfProcessing <<MissingArtifact>> {
+		name: 
+		purpose:
+		contact_details:
+		personal_data_category:
+		data_storage_period:
+		security_measures:
+		recipients:
+	}
+parkingServiceCredential -- Consent : manifests >
+parkingServiceCredential -- PrivacyPolicy : manifests >
+AV -- parkingServiceCredential : provides >
+PSP -- ProcessingSystem : implements >
+PSP -- PLT : authorizes >
+Check_parking_service_credential -- RecordOfProcessing : manifests >
+parkingServiceCredential -- LegalGroundSpecialCategory : requires >
+parkingServiceCredential -- LegalGround : requires >
+PSP --|> DataHandler
+PLT --|> DataHandler
+Recipient --|> DataHandler
+ThirdParty --|> DataHandler
+DataHandler -- parkingServiceCredential : receives >
+ProcessingSystem -- Check_parking_service_credential : performs >
+FilingSystem --|> ProcessingSystem
+SecurityMeasures -- ProcessingSystem : secures >
+skinparam class {
+  BackgroundColor<<Artifact>> PaleGreen
+  BorderColor<<Artifact>> SpringGreen
+  BackGroundColor<<NotRequired>> White
+  BorderColor<<NotRequired>> DarkGray
+  AttributeFontColor<<NotRequired>> LightGray
+  BorderColor<<MissingClass>> Red
+  BackgroundColor<<MissingArtifact>> PaleGreen
+  BorderColor<<MissingArtifact>> Red
+}
+
+ note top of Consent #salmon: Consent is missing [Art. 7]
+
+ note top of PrivacyPolicy #salmon: Privacy policy is missing [Art. 13,14]
+
+ note top of SecurityMeasures #salmon: No security measures present [Art. 25] 
+
+ note top of ProcessingSystem #salmon: Processing system has missing attributes [Art. 32]
+
+ note top of Check_parking_service_credential #salmon: Processing task is not being recorded [Art. 30] 
+
+ note top of RecordOfProcessing #salmon: Record of processing is missing [Art. 30] 
+@enduml
