@@ -48,3 +48,18 @@ evaluation.
   \label{fig:improved-uml}
 \end{center}
 \end{figure}
+
+We then re-analysed our improved BPMN model (which is now GDPR compliant with
+added annotations) and discovered several shortcomings---namely, the PSP can put
+together the customer's identity and the location of their car, even though this
+is not needed. For providing the parking service, it is sufficient if only PLT
+learns of the parking location, and PSP of the user's identity. Moreover, the
+PSP can read the parking permit information even though at this point the PSP
+does not need to access these contents.
+
+It becomes clear that data minimisation principles are not followed in the
+initial model, and this introduces additional and unnecessary risk of data
+leakage. To decrease this risk, we propose the implementation of encryption so
+that the PSP can carry some of the user's sensitive data and provided it to the
+PLT, but without being able to read and understand the data itself. We further
+discuss our recommendations in the next section.
